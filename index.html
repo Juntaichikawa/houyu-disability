@@ -1,1221 +1,231 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ja">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>障碍者支援事業 | 奉優会</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;700&family=Shippori+Mincho+B1:wght@400;700;800&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
-<style>
-*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
-:root {
-  --black: #0a0a0a;
-  --white: #f5f2ed;
-  --off-white: #ede9e3;
-  --accent: #d4550a;
-  --muted: rgba(245,242,237,0.45);
-  --line: rgba(245,242,237,0.15);
-}
-html { scroll-behavior: smooth; }
-body {
-  background: var(--black);
-  color: var(--white);
-  font-family: 'Noto Serif JP', serif;
-  font-weight: 300;
-  overflow-x: hidden;
-  cursor: none;
-}
-
-/* CUSTOM CURSOR */
-.cursor {
-  width: 10px; height: 10px;
-  background: var(--white);
-  border-radius: 50%;
-  position: fixed;
-  top: 0; left: 0;
-  pointer-events: none;
-  z-index: 9999;
-  mix-blend-mode: difference;
-  transition: transform 0.15s ease;
-}
-.cursor-ring {
-  width: 36px; height: 36px;
-  border: 1px solid rgba(245,242,237,0.5);
-  border-radius: 50%;
-  position: fixed;
-  top: 0; left: 0;
-  pointer-events: none;
-  z-index: 9998;
-  transition: transform 0.08s ease, width 0.2s, height 0.2s, opacity 0.2s;
-}
-
-/* ── HEADER ── */
-header {
-  position: fixed; top:0; left:0; right:0; z-index:100;
-  display: flex; justify-content:space-between; align-items:center;
-  padding: 24px 48px;
-  mix-blend-mode: difference;
-}
-.logo-text {
-  font-family: 'Shippori Mincho B1', serif;
-  font-size: 15px; font-weight:700;
-  letter-spacing: 0.25em;
-  color: var(--white);
-  text-decoration: none;
-}
-nav {
-  display: flex; gap: 36px; align-items: center;
-}
-nav a {
-  font-family: 'Jost', sans-serif;
-  font-size: 10px; font-weight:300;
-  letter-spacing: 0.35em; text-transform: uppercase;
-  color: var(--white); text-decoration: none;
-  opacity: 0.7;
-  transition: opacity 0.2s;
-}
-nav a:hover { opacity: 1; }
-.nav-contact {
-  opacity: 1 !important;
-  border-bottom: 1px solid var(--white);
-  padding-bottom: 2px;
-}
-
-/* ── HERO FULL ── */
-.hero {
-  height: 100vh; min-height: 640px;
-  position: relative; overflow:hidden;
-  display: flex; align-items: flex-end;
-}
-
-/* generative art canvas bg */
-.hero-canvas {
-  position: absolute; inset:0;
-  width:100%; height:100%;
-}
-
-.hero-overlay {
-  position: absolute; inset:0;
-  background: linear-gradient(
-    to bottom,
-    rgba(10,10,10,0.2) 0%,
-    rgba(10,10,10,0.0) 40%,
-    rgba(10,10,10,0.7) 80%,
-    rgba(10,10,10,0.95) 100%
-  );
-}
-
-.hero-content {
-  position: relative; z-index:2;
-  padding: 0 48px 80px;
-  width: 100%;
-  display: grid; grid-template-columns: 1fr auto;
-  align-items: flex-end; gap: 48px;
-}
-.hero-label {
-  font-family: 'Jost', sans-serif;
-  font-size: 9px; font-weight:300;
-  letter-spacing: 0.5em; text-transform:uppercase;
-  color: var(--accent);
-  margin-bottom: 20px;
-  display: flex; align-items:center; gap:12px;
-}
-.hero-label::before { content:''; display:block; width:28px; height:1px; background: var(--accent); }
-
-.hero-title {
-  font-family: 'Shippori Mincho B1', serif;
-  font-size: clamp(48px, 8vw, 110px);
-  font-weight: 800;
-  line-height: 1.0;
-  letter-spacing: -0.02em;
-  margin-bottom: 28px;
-}
-.hero-title em {
-  font-style: italic;
-  font-family: 'Cormorant Garamond', serif;
-  font-weight: 300;
-  font-size: 0.85em;
-  color: var(--accent);
-}
-
-.hero-sub {
-  font-size: 13px; line-height:2.2;
-  color: var(--muted);
-  max-width: 380px;
-}
-.hero-right {
-  text-align: right;
-  padding-bottom: 8px;
-}
-.hero-scroll-line {
-  width:1px; height:80px;
-  background: linear-gradient(to bottom, transparent, var(--white));
-  margin: 0 auto 12px;
-  animation: grow 2.5s ease-in-out infinite;
-}
-@keyframes grow {
-  0%,100%{ transform: scaleY(0.3); opacity:0.3; }
-  50%{ transform: scaleY(1); opacity:1; }
-}
-.hero-scroll-text {
-  font-family:'Jost',sans-serif; font-size:8px;
-  letter-spacing:0.4em; text-transform:uppercase;
-  color: var(--muted);
-  writing-mode: vertical-rl; transform:rotate(180deg);
-  margin:0 auto;
-}
-
-/* ── MARQUEE ── */
-.marquee-wrap {
-  border-top: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
-  padding: 14px 0;
-  overflow:hidden; white-space:nowrap;
-}
-.marquee-inner {
-  display:inline-flex; gap:0;
-  animation: marquee 20s linear infinite;
-}
-.marquee-item {
-  font-family:'Jost',sans-serif; font-size:9px;
-  letter-spacing:0.4em; text-transform:uppercase;
-  color: var(--muted);
-  padding: 0 40px;
-  display:inline-flex; align-items:center; gap:40px;
-}
-.marquee-item::after { content:'✦'; font-size:8px; color: var(--accent); }
-@keyframes marquee { from{transform:translateX(0)} to{transform:translateX(-50%)} }
-
-/* ── MISSION ── */
-.mission {
-  padding: 140px 48px;
-  display: grid; grid-template-columns: 1fr 1fr;
-  gap: 80px; align-items:center;
-}
-.mission-label {
-  font-family:'Jost',sans-serif; font-size:9px;
-  letter-spacing:0.45em; text-transform:uppercase;
-  color: var(--accent); margin-bottom:32px;
-}
-.mission-title {
-  font-family:'Shippori Mincho B1',serif;
-  font-size: clamp(28px, 4vw, 52px);
-  font-weight:800; line-height:1.3;
-  margin-bottom: 40px;
-}
-.mission-title span {
-  display:block; color: var(--accent);
-  font-family:'Cormorant Garamond',serif;
-  font-size:0.8em; font-style:italic; font-weight:300;
-}
-.mission-body {
-  font-size: 13px; line-height:2.5;
-  color: var(--muted);
-  border-left: 1px solid var(--line);
-  padding-left: 28px;
-}
-.mission-right {
-  position:relative; aspect-ratio: 4/5;
-  overflow:hidden;
-}
-.mission-art-bg {
-  width:100%; height:100%;
-  background: linear-gradient(135deg, #1a0a00, #0a0a1a);
-  display:flex; align-items:center; justify-content:center;
-}
-.mission-art-bg canvas { width:100%; height:100%; display:block; }
-.mission-num {
-  position: absolute; bottom:24px; right:24px;
-  font-family:'Cormorant Garamond',serif;
-  font-size:96px; font-weight:300;
-  color: rgba(245,242,237,0.06);
-  line-height:1; user-select:none;
-}
-
-/* ── SERVICES (light section) ── */
-.services {
-  background: var(--off-white);
-  color: var(--black);
-  padding: 120px 48px;
-}
-.services-top {
-  display:flex; justify-content:space-between; align-items:flex-end;
-  margin-bottom: 72px; gap:40px;
-}
-.services-title {
-  font-family:'Shippori Mincho B1',serif;
-  font-size: clamp(32px, 5vw, 68px);
-  font-weight:800; line-height:1.1;
-  letter-spacing:-0.02em;
-}
-.services-desc {
-  font-size:13px; line-height:2.2;
-  color: rgba(10,10,10,0.5);
-  max-width: 340px; text-align:right;
-}
-
-/* large service items stacked */
-.service-items { display:flex; flex-direction:column; }
-.service-item {
-  display:grid;
-  grid-template-columns: 120px 1fr 200px;
-  gap:0;
-  align-items:stretch;
-  border-top: 1px solid rgba(10,10,10,0.15);
-  min-height: 200px;
-  text-decoration:none; color: var(--black);
-  position: relative; overflow:hidden;
-  cursor:none;
-}
-.service-item:last-child { border-bottom: 1px solid rgba(10,10,10,0.15); }
-
-.service-item-fill {
-  position:absolute; inset:0;
-  background: var(--black);
-  transform: scaleY(0); transform-origin: bottom;
-  transition: transform 0.5s cubic-bezier(0.76,0,0.24,1);
-  z-index:0;
-}
-.service-item:hover .service-item-fill { transform: scaleY(1); }
-.service-item:hover .si-num,
-.service-item:hover .si-title,
-.service-item:hover .si-body,
-.service-item:hover .si-type,
-.service-item:hover .si-arrow { color: var(--white); }
-.service-item:hover { border-color: transparent; }
-
-.si-num {
-  position:relative; z-index:1;
-  display:flex; align-items:center; justify-content:center;
-  font-family:'Cormorant Garamond',serif;
-  font-size:52px; font-weight:300;
-  color: rgba(10,10,10,0.15);
-  border-right: 1px solid rgba(10,10,10,0.12);
-  transition: color 0.4s;
-}
-.service-item:hover .si-num { border-color: rgba(245,242,237,0.1); }
-
-.si-content {
-  position:relative; z-index:1;
-  padding: 48px 40px;
-  display:flex; flex-direction:column; justify-content:center;
-}
-.si-title {
-  font-family:'Shippori Mincho B1',serif;
-  font-size: clamp(20px,2.5vw,28px);
-  font-weight:700; margin-bottom:16px;
-  transition: color 0.4s;
-}
-.si-body {
-  font-size:12px; line-height:2.1;
-  color: rgba(10,10,10,0.5);
-  max-width: 480px;
-  transition: color 0.4s;
-}
-.service-item:hover .si-body { color: var(--muted); }
-
-.si-meta {
-  position:relative; z-index:1;
-  border-left: 1px solid rgba(10,10,10,0.12);
-  display:flex; flex-direction:column;
-  justify-content:space-between;
-  padding: 32px 28px;
-  transition: border-color 0.4s;
-}
-.service-item:hover .si-meta { border-color: rgba(245,242,237,0.1); }
-.si-type {
-  font-family:'Jost',sans-serif; font-size:9px;
-  letter-spacing:0.35em; text-transform:uppercase;
-  color: rgba(10,10,10,0.4);
-  transition: color 0.4s;
-}
-.si-arrow {
-  font-size:24px; color: rgba(10,10,10,0.25);
-  transition: color 0.4s;
-  align-self:flex-end;
-}
-
-/* ── PHILOSOPHY (dark + art) ── */
-.philosophy {
-  padding: 0;
-  display:grid; grid-template-columns: 1fr 1fr;
-  min-height: 80vh;
-}
-.philosophy-art {
-  position:relative; overflow:hidden;
-  background: #0d0815;
-}
-.philosophy-art canvas {
-  width:100%; height:100%; display:block;
-  position:absolute; inset:0;
-}
-.philosophy-art-caption {
-  position:absolute; bottom:28px; left:28px;
-  font-family:'Jost',sans-serif; font-size:9px;
-  letter-spacing:0.3em; text-transform:uppercase;
-  color: rgba(245,242,237,0.3);
-}
-.philosophy-text {
-  padding: 100px 64px;
-  display:flex; flex-direction:column; justify-content:center;
-  background: #111;
-}
-.philosophy-label {
-  font-family:'Jost',sans-serif; font-size:9px;
-  letter-spacing:0.45em; text-transform:uppercase;
-  color: var(--accent); margin-bottom:40px;
-}
-.philosophy-quote {
-  font-family:'Cormorant Garamond',serif;
-  font-size: clamp(24px,3vw,40px);
-  font-weight:300; font-style:italic;
-  line-height:1.6; margin-bottom:40px;
-  color: var(--white);
-}
-.philosophy-ja {
-  font-family:'Shippori Mincho B1',serif;
-  font-size: clamp(16px,2vw,22px);
-  font-weight:400; line-height:1.9;
-  color: rgba(245,242,237,0.8);
-  margin-bottom:40px;
-}
-.philosophy-body {
-  font-size:12px; line-height:2.4;
-  color: var(--muted);
-  border-top: 1px solid var(--line);
-  padding-top: 32px;
-}
-
-/* ── ARTISTS / VOICES (white) ── */
-.voices-section {
-  background: var(--white);
-  color: var(--black);
-  padding: 120px 48px;
-}
-.voices-header {
-  display:flex; justify-content:space-between; align-items:flex-end;
-  margin-bottom: 72px;
-}
-.voices-title {
-  font-family:'Shippori Mincho B1',serif;
-  font-size: clamp(28px,4vw,54px);
-  font-weight:800; line-height:1.1;
-}
-.voices-link {
-  font-family:'Jost',sans-serif; font-size:9px;
-  letter-spacing:0.35em; text-transform:uppercase;
-  color: rgba(10,10,10,0.4); text-decoration:none;
-  display:flex; align-items:center; gap:8px;
-  transition: color 0.2s;
-}
-.voices-link:hover { color: var(--black); }
-.voices-link::after { content:'↗'; font-size:14px; }
-
-.voices-grid {
-  display:grid; grid-template-columns: repeat(3,1fr);
-  gap:2px;
-}
-.voice-card {
-  background: #f0ece5;
-  padding: 48px 36px;
-  position:relative; overflow:hidden;
-  transition: background 0.3s;
-}
-.voice-card:hover { background: var(--black); }
-.voice-card-accent {
-  width:100%; height:3px;
-  background: var(--accent);
-  margin-bottom: 36px;
-}
-.voice-tag {
-  font-family:'Jost',sans-serif; font-size:9px;
-  letter-spacing:0.35em; text-transform:uppercase;
-  color: var(--accent); margin-bottom:20px;
-}
-.voice-text {
-  font-size:13px; line-height:2.1; margin-bottom:32px;
-  transition: color 0.3s;
-}
-.voice-card:hover .voice-text { color: var(--white); }
-.voice-card:hover .voice-tag { color: #e08060; }
-.voice-name {
-  font-family:'Shippori Mincho B1',serif;
-  font-size:13px; font-weight:700; display:block;
-  transition: color 0.3s;
-}
-.voice-role {
-  font-family:'Jost',sans-serif; font-size:10px;
-  letter-spacing:0.1em; color: rgba(10,10,10,0.4);
-  transition: color 0.3s;
-}
-.voice-card:hover .voice-name { color: var(--white); }
-.voice-card:hover .voice-role { color: var(--muted); }
-
-/* ── LOCATIONS ── */
-.locations {
-  padding: 120px 48px;
-  background: var(--black);
-}
-.locations-header { margin-bottom: 64px; }
-.locations-title {
-  font-family:'Shippori Mincho B1',serif;
-  font-size: clamp(28px,4vw,52px);
-  font-weight:800; margin-top:12px;
-}
-
-.loc-list { display:flex; flex-direction:column; }
-.loc-item {
-  display:grid;
-  grid-template-columns: 64px 1fr 180px 40px;
-  align-items:center; gap:32px;
-  padding: 28px 0;
-  border-bottom: 1px solid var(--line);
-  text-decoration:none; color: var(--white);
-  position:relative; overflow:hidden;
-}
-.loc-item:first-child { border-top: 1px solid var(--line); }
-.loc-item-fill {
-  position:absolute; inset:0;
-  background: var(--accent);
-  transform: scaleX(0); transform-origin:left;
-  transition: transform 0.4s cubic-bezier(0.76,0,0.24,1);
-  z-index:0;
-}
-.loc-item:hover .loc-item-fill { transform: scaleX(1); }
-.loc-item > * { position:relative; z-index:1; }
-.loc-n {
-  font-family:'Cormorant Garamond',serif;
-  font-size:28px; font-weight:300;
-  color: rgba(245,242,237,0.2);
-  transition: color 0.3s;
-}
-.loc-item:hover .loc-n { color: rgba(245,242,237,0.5); }
-.loc-name {
-  font-family:'Shippori Mincho B1',serif;
-  font-size:17px; font-weight:700;
-  margin-bottom:4px;
-}
-.loc-addr {
-  font-family:'Jost',sans-serif; font-size:10px;
-  letter-spacing:0.15em; color: var(--muted);
-  transition: color 0.3s;
-}
-.loc-item:hover .loc-addr { color: rgba(245,242,237,0.7); }
-.loc-type {
-  font-family:'Jost',sans-serif; font-size:9px;
-  letter-spacing:0.3em; text-transform:uppercase;
-  color: var(--muted); transition: color 0.3s;
-}
-.loc-item:hover .loc-type { color: rgba(245,242,237,0.8); }
-.loc-arr { font-size:20px; color: var(--muted); transition: color 0.3s; }
-.loc-item:hover .loc-arr { color: var(--white); }
-
-/* ── CONTACT (full) ── */
-.contact {
-  min-height: 90vh;
-  display:flex; flex-direction:column;
-  align-items:center; justify-content:center;
-  text-align:center;
-  position:relative; overflow:hidden;
-  padding: 100px 48px;
-}
-.contact-bg {
-  position:absolute; inset:0;
-  background: linear-gradient(135deg, #120000, #0a0a1a, #001200);
-  z-index:0;
-}
-.contact-bg canvas {
-  position:absolute; inset:0;
-  width:100%; height:100%; opacity:0.6;
-}
-.contact-inner { position:relative; z-index:1; }
-.contact-label {
-  font-family:'Jost',sans-serif; font-size:9px;
-  letter-spacing:0.5em; text-transform:uppercase;
-  color: var(--accent); margin-bottom:32px;
-}
-.contact-title {
-  font-family:'Shippori Mincho B1',serif;
-  font-size: clamp(36px,6vw,88px);
-  font-weight:800; line-height:1.05;
-  letter-spacing:-0.02em; margin-bottom: 36px;
-}
-.contact-title em {
-  font-family:'Cormorant Garamond',serif;
-  font-style:italic; font-weight:300;
-  font-size:0.8em; color: var(--accent);
-}
-.contact-body {
-  font-size:13px; line-height:2.3;
-  color: var(--muted); max-width:480px;
-  margin:0 auto 56px;
-}
-.contact-btns {
-  display:flex; gap:16px; justify-content:center;
-  flex-wrap:wrap;
-}
-.btn-a {
-  background: var(--white); color: var(--black);
-  font-family:'Jost',sans-serif; font-size:10px;
-  letter-spacing:0.3em; text-transform:uppercase;
-  padding: 18px 48px; text-decoration:none;
-  transition: background 0.2s, color 0.2s;
-  cursor:none;
-}
-.btn-a:hover { background: var(--accent); color: var(--white); }
-.btn-b {
-  border: 1px solid rgba(245,242,237,0.3);
-  color: var(--white);
-  font-family:'Jost',sans-serif; font-size:10px;
-  letter-spacing:0.3em; text-transform:uppercase;
-  padding: 18px 48px; text-decoration:none;
-  transition: border-color 0.2s;
-  cursor:none;
-}
-.btn-b:hover { border-color: var(--white); }
-
-/* ── FOOTER ── */
-footer {
-  background: #050505;
-  padding: 56px 48px 32px;
-  border-top: 1px solid var(--line);
-}
-.footer-grid {
-  display:grid; grid-template-columns: 1fr 1fr 1fr;
-  gap:48px; margin-bottom:56px;
-}
-.footer-logo {
-  font-family:'Shippori Mincho B1',serif;
-  font-size:20px; font-weight:700;
-  margin-bottom:8px;
-}
-.footer-tagline {
-  font-family:'Jost',sans-serif; font-size:9px;
-  letter-spacing:0.3em; text-transform:uppercase;
-  color: var(--muted);
-}
-.footer-col-title {
-  font-family:'Jost',sans-serif; font-size:9px;
-  letter-spacing:0.35em; text-transform:uppercase;
-  color: var(--accent); margin-bottom:20px;
-}
-.footer-links { display:flex; flex-direction:column; gap:10px; }
-.footer-links a {
-  font-family:'Jost',sans-serif; font-size:11px;
-  letter-spacing:0.15em; color: var(--muted);
-  text-decoration:none; transition: color 0.2s;
-}
-.footer-links a:hover { color: var(--white); }
-.footer-tel {
-  font-family:'Cormorant Garamond',serif;
-  font-size:28px; font-weight:300;
-  margin-bottom:4px;
-}
-.footer-tel-note {
-  font-family:'Jost',sans-serif; font-size:9px;
-  letter-spacing:0.25em; color: var(--muted);
-}
-.footer-bottom {
-  border-top: 1px solid var(--line);
-  padding-top: 24px;
-  display:flex; justify-content:space-between; align-items:center;
-}
-.footer-copy {
-  font-family:'Jost',sans-serif; font-size:9px;
-  letter-spacing:0.15em; color: var(--muted);
-}
-
-/* ── ANIMATIONS ── */
-.reveal {
-  opacity:0; transform: translateY(32px);
-  transition: opacity 0.9s cubic-bezier(0.16,1,0.3,1),
-              transform 0.9s cubic-bezier(0.16,1,0.3,1);
-}
-.reveal.in { opacity:1; transform:translateY(0); }
-.reveal-delay-1 { transition-delay: 0.1s; }
-.reveal-delay-2 { transition-delay: 0.2s; }
-.reveal-delay-3 { transition-delay: 0.35s; }
-
-@media (max-width:900px) {
-  header { padding: 20px 24px; }
-  nav { display:none; }
-  .hero-content { grid-template-columns:1fr; padding:0 24px 60px; }
-  .hero-right { display:none; }
-  .mission { grid-template-columns:1fr; padding:80px 24px; }
-  .mission-right { display:none; }
-  .services { padding:80px 24px; }
-  .services-top { flex-direction:column; }
-  .services-desc { text-align:left; max-width:100%; }
-  .service-item { grid-template-columns: 60px 1fr; }
-  .si-meta { display:none; }
-  .philosophy { grid-template-columns:1fr; }
-  .philosophy-art { height:300px; }
-  .voices-section { padding:80px 24px; }
-  .voices-grid { grid-template-columns:1fr; }
-  .locations { padding:80px 24px; }
-  .loc-item { grid-template-columns: 48px 1fr 40px; }
-  .loc-type { display:none; }
-  .contact { padding:80px 24px; }
-  footer { padding:48px 24px 24px; }
-  .footer-grid { grid-template-columns:1fr; }
-  .footer-bottom { flex-direction:column; gap:12px; text-align:center; }
-}
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="東京・杉並の初心者にやさしいボルダリングジム LAGO。予約不要、レンタルあり。">
+  <title>LAGO BOULDERING STUDIO</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <header class="site-header">
+    <a class="brand" href="#top" aria-label="LAGO トップへ">
+      <span class="brand-main">LAGO</span>
+      <span class="brand-sub">BOULDERING STUDIO</span>
+    </a>
 
-<div class="cursor" id="cursor"></div>
-<div class="cursor-ring" id="cursorRing"></div>
+    <button class="menu-button" aria-expanded="false" aria-controls="global-nav">MENU</button>
 
-<!-- HEADER -->
-<header>
-  <a href="#" class="logo-text">奉優会</a>
-  <nav>
-    <a href="#services">サービス</a>
-    <a href="#philosophy">理念</a>
-    <a href="#voices">利用者の声</a>
-    <a href="#locations">拠点</a>
-    <a href="#contact" class="nav-contact">お問い合わせ</a>
-  </nav>
-</header>
+    <nav id="global-nav" class="global-nav" aria-label="メインメニュー">
+      <a href="#first">初めての方へ</a>
+      <a href="#price">料金・営業時間</a>
+      <a href="#features">施設・課題紹介</a>
+      <a href="#faq">よくある質問</a>
+      <a href="#access">アクセス</a>
+      <a href="#instagram">Instagram</a>
+    </nav>
 
-<!-- HERO -->
-<section class="hero">
-  <canvas class="hero-canvas" id="heroCanvas"></canvas>
-  <div class="hero-overlay"></div>
-  <div class="hero-content">
-    <div>
-      <div class="hero-label">障碍者支援事業 — New Service 2025</div>
-      <h1 class="hero-title">
-        異彩を、<br><em>ひらく。</em>
-      </h1>
-      <p class="hero-sub">
-        奉優会が50年の医療・介護の知見とともに、<br>
-        障碍のある方の「自分らしい暮らし」を新たに支えます。
-      </p>
+    <div class="header-actions">
+      <a class="header-link instagram-link" href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer">Instagram</a>
+      <a class="header-link access-link" href="#access">アクセス</a>
+      <a class="header-link phone-link" href="tel:0000000000">電話する</a>
     </div>
-    <div class="hero-right">
-      <div class="hero-scroll-line"></div>
-      <div class="hero-scroll-text">scroll</div>
-    </div>
-  </div>
-</section>
+  </header>
 
-<!-- MARQUEE -->
-<div class="marquee-wrap">
-  <div class="marquee-inner">
-    <span class="marquee-item">就労移行支援</span>
-    <span class="marquee-item">就労継続支援B型</span>
-    <span class="marquee-item">グループホーム</span>
-    <span class="marquee-item">相談支援</span>
-    <span class="marquee-item">医療連携</span>
-    <span class="marquee-item">社会福祉法人 奉優会</span>
-    <span class="marquee-item">就労移行支援</span>
-    <span class="marquee-item">就労継続支援B型</span>
-    <span class="marquee-item">グループホーム</span>
-    <span class="marquee-item">相談支援</span>
-    <span class="marquee-item">医療連携</span>
-    <span class="marquee-item">社会福祉法人 奉優会</span>
-  </div>
-</div>
+  <main id="top">
+    <section class="hero">
+      <div class="hero-bg" aria-hidden="true"></div>
+      <div class="hero-overlay"></div>
+      <div class="hero-inner">
+        <p class="eyebrow">TOKYO・SUGINAMI</p>
+        <h1>はじめてでも、<br>今日から登れる。</h1>
+        <p class="hero-copy">東京・杉並の初心者にやさしい<br>ボルダリングジム LAGO</p>
+        <div class="hero-buttons">
+          <a class="button button-primary" href="#first">初めての方はこちら</a>
+          <a class="button button-secondary" href="#price">料金を見る</a>
+        </div>
+        <ul class="quick-points" aria-label="LAGOの特徴">
+          <li>予約不要</li>
+          <li>レンタルあり</li>
+          <li>駅徒歩5分</li>
+          <li>平日23時まで</li>
+        </ul>
+      </div>
+      <a class="hero-badge" href="#contact">予約なしで<br>気軽に行ける！</a>
+    </section>
 
-<!-- MISSION -->
-<section class="mission">
-  <div>
-    <div class="mission-label reveal">Mission</div>
-    <h2 class="mission-title reveal">
-      <span>Radiate</span>
-      ひとりひとりの<br>
-      可能性を解き放つ。
-    </h2>
-    <p class="mission-body reveal">
-      奉優会は創業以来、「人を支える」ことと向き合い続けてきました。
-      障碍は欠如ではなく、固有の感性・集中力・創造性を持つ個性のひとつ。
-      その異彩が社会のなかで輝けるよう、就労・生活・地域の三つの領域で
-      伴走型の支援を徹底します。支援ではなく、ともに歩む。
-      それが私たちのあり方です。
-    </p>
-  </div>
-  <div class="mission-right">
-    <div class="mission-art-bg">
-      <canvas id="missionCanvas"></canvas>
-    </div>
-    <div class="mission-num">50</div>
-  </div>
-</section>
+    <section id="first" class="section">
+      <div class="section-heading">
+        <p class="section-kicker">FIRST VISIT</p>
+        <h2>今日から始められます</h2>
+      </div>
+      <div class="steps">
+        <article class="step-card">
+          <span class="step-number">01</span>
+          <div class="step-icon">受付</div>
+          <h3>受付する</h3>
+          <p>予約なしで直接ご来店ください。</p>
+        </article>
+        <article class="step-card">
+          <span class="step-number">02</span>
+          <div class="step-icon">SHOES</div>
+          <h3>シューズを借りる</h3>
+          <p>専用シューズとチョークをレンタルできます。</p>
+        </article>
+        <article class="step-card">
+          <span class="step-number">03</span>
+          <div class="step-icon">CLIMB</div>
+          <h3>説明を受けて登る</h3>
+          <p>スタッフがルールや基本の登り方を説明します。</p>
+        </article>
+      </div>
+    </section>
 
-<!-- SERVICES -->
-<section class="services" id="services">
-  <div class="services-top reveal">
-    <h2 class="services-title">
-      3つの<br>サービス
-    </h2>
-    <p class="services-desc">
-      就労・居住・地域という3軸で、障碍のある方の暮らしをトータルに支えます。
-      奉優会が積み上げた専門職チームと医療連携の強みを、新たな領域で発揮します。
-    </p>
-  </div>
+    <section id="features" class="section section-soft">
+      <div class="section-heading">
+        <p class="section-kicker">WHY LAGO</p>
+        <h2>LAGOが選ばれる理由</h2>
+      </div>
+      <div class="features-grid">
+        <article><strong>初心者にやさしい</strong><span>スタッフが基本からご案内</span></article>
+        <article><strong>気軽に通える料金</strong><span>利用者に合わせた料金設定</span></article>
+        <article><strong>予約なしで利用可能</strong><span>思い立った日にそのまま来店</span></article>
+        <article><strong>仕事帰りにも利用できる</strong><span>平日は23時まで営業</span></article>
+        <article><strong>子どもから大人まで</strong><span>親子利用・キッズ利用にも対応</span></article>
+      </div>
+    </section>
 
-  <div class="service-items">
-    <a href="#" class="service-item">
-      <div class="service-item-fill"></div>
-      <div class="si-num">01</div>
-      <div class="si-content">
-        <div class="si-title">就労移行支援</div>
-        <div class="si-body">
-          一般就労を目指す方へ、職業訓練から就職活動・職場定着まで一貫サポート。
-          個別支援計画に基づき、ひとりひとりのペースと強みを大切にします。
-          医療・看護スタッフとの連携により、体調管理も安心して行えます。
+    <section id="price" class="section">
+      <div class="section-heading">
+        <p class="section-kicker">PRICE</p>
+        <h2>料金のご案内</h2>
+        <p class="section-note">以下はデザイン確認用の仮料金です。公開時に正式料金へ差し替えます。</p>
+      </div>
+      <div class="price-grid">
+        <article class="price-card featured">
+          <span class="price-label">初めての方</span>
+          <p>初回登録料＋利用料＋レンタル</p>
+          <strong>2,200<small>円〜</small></strong>
+          <a href="#contact">利用相談へ</a>
+        </article>
+        <article class="price-card">
+          <span class="price-label">通常利用</span>
+          <p>一般・平日利用</p>
+          <strong>1,700<small>円〜</small></strong>
+          <a href="#contact">利用相談へ</a>
+        </article>
+        <article class="price-card">
+          <span class="price-label">学生割引</span>
+          <p>学生証のご提示で</p>
+          <strong>1,400<small>円〜</small></strong>
+          <a href="#contact">利用相談へ</a>
+        </article>
+        <article class="price-card">
+          <span class="price-label">女性割引</span>
+          <p>女性向けプラン</p>
+          <strong>1,200<small>円〜</small></strong>
+          <a href="#contact">利用相談へ</a>
+        </article>
+      </div>
+    </section>
+
+    <section class="section section-dark">
+      <div class="section-heading light">
+        <p class="section-kicker">FOR YOU</p>
+        <h2>こんな人におすすめ</h2>
+        <p>写真をクリックすると利用相談・見学のお問い合わせへ進みます。</p>
+      </div>
+      <div class="audience-grid">
+        <a class="audience-card" href="#contact"><span>初めて体験する人</span></a>
+        <a class="audience-card" href="#contact"><span>運動不足を解消したい人</span></a>
+        <a class="audience-card" href="#contact"><span>仕事帰りに運動したい人</span></a>
+        <a class="audience-card" href="#contact"><span>一人で始めたい人</span></a>
+        <a class="audience-card" href="#contact"><span>親子で楽しみたい人</span></a>
+        <a class="audience-card" href="#contact"><span>本格的に上達したい人</span></a>
+      </div>
+    </section>
+
+    <section id="contact" class="contact-band">
+      <div>
+        <p class="section-kicker">CONTACT</p>
+        <h2>利用相談・見学のお問い合わせ</h2>
+        <p>不安なことやご質問など、まずはお気軽にご相談ください。</p>
+      </div>
+      <a class="button button-accent" href="mailto:info@example.com?subject=LAGO利用相談">お問い合わせはこちら</a>
+    </section>
+
+    <section id="instagram" class="section">
+      <div class="instagram-panel">
+        <div class="instagram-copy">
+          <p class="section-kicker">OFFICIAL INSTAGRAM</p>
+          <h2>最新情報はInstagramで</h2>
+          <p>営業スケジュール、新しい課題、イベント情報を発信します。</p>
+          <a class="button button-primary" href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer">Instagramをフォロー</a>
+        </div>
+        <div class="instagram-grid" aria-label="Instagram投稿イメージ">
+          <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer"><span>NEW ROUTE</span></a>
+          <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer"><span>BEGINNER</span></a>
+          <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer"><span>EVENT</span></a>
+          <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer"><span>STAFF</span></a>
+          <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer"><span>GYM</span></a>
+          <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer"><span>CLIMB</span></a>
         </div>
       </div>
-      <div class="si-meta">
-        <div class="si-type">Service 01</div>
-        <div class="si-arrow">↗</div>
-      </div>
-    </a>
+    </section>
 
-    <a href="#" class="service-item">
-      <div class="service-item-fill"></div>
-      <div class="si-num">02</div>
-      <div class="si-content">
-        <div class="si-title">就労継続支援（B型）</div>
-        <div class="si-body">
-          雇用契約を結ばずに働く練習ができる場を提供。
-          軽作業・手工芸・デジタル業務など多様なプログラムで、
-          働く喜びと自信を少しずつ育みます。焦らず、自分のリズムで。
+    <section id="faq" class="section section-soft">
+      <div class="section-heading">
+        <p class="section-kicker">FAQ</p>
+        <h2>よくある質問</h2>
+      </div>
+      <div class="faq-list">
+        <details><summary>運動が苦手でも利用できますか？</summary><p>初心者向けの課題から始められます。スタッフが基本をご案内します。</p></details>
+        <details><summary>一人で行っても大丈夫ですか？</summary><p>一人で来店される方も多く、気軽にご利用いただけます。</p></details>
+        <details><summary>予約は必要ですか？</summary><p>通常利用は予約不要の想定です。団体利用などは事前にお問い合わせください。</p></details>
+        <details><summary>何を持っていけばいいですか？</summary><p>動きやすい服装と靴下をご用意ください。シューズ等はレンタルできます。</p></details>
+      </div>
+    </section>
+
+    <section id="access" class="section">
+      <div class="access-grid">
+        <div>
+          <p class="section-kicker">ACCESS</p>
+          <h2>アクセス</h2>
+          <p>東京都杉並区和泉1-1-1<br>代田橋駅 徒歩5分</p>
+          <p class="section-note">住所・電話番号・営業時間は正式情報へ差し替えてください。</p>
+          <div class="hero-buttons">
+            <a class="button button-primary" href="https://maps.google.com/" target="_blank" rel="noopener noreferrer">Googleマップ</a>
+            <a class="button button-secondary" href="tel:0000000000">電話する</a>
+          </div>
         </div>
+        <div class="map-placeholder">MAP</div>
       </div>
-      <div class="si-meta">
-        <div class="si-type">Service 02</div>
-        <div class="si-arrow">↗</div>
-      </div>
-    </a>
+    </section>
+  </main>
 
-    <a href="#" class="service-item">
-      <div class="service-item-fill"></div>
-      <div class="si-num">03</div>
-      <div class="si-content">
-        <div class="si-title">グループホーム（共同生活援助）</div>
-        <div class="si-body">
-          地域のなかで自立した生活を送るための居住支援。
-          日常生活のサポートから余暇・外出支援まで、安心して暮らせる「我が家」。
-          奉優会の訪問看護・医療サービスとシームレスに連携します。
-        </div>
-      </div>
-      <div class="si-meta">
-        <div class="si-type">Service 03</div>
-        <div class="si-arrow">↗</div>
-      </div>
-    </a>
-  </div>
-</section>
-
-<!-- PHILOSOPHY -->
-<section class="philosophy" id="philosophy">
-  <div class="philosophy-art">
-    <canvas id="philosophyCanvas"></canvas>
-    <div class="philosophy-art-caption">Art by Houyu-kai — Generative</div>
-  </div>
-  <div class="philosophy-text">
-    <div class="philosophy-label reveal">Philosophy</div>
-    <blockquote class="philosophy-quote reveal">
-      "Not a limitation.<br>A different brilliance."
-    </blockquote>
-    <p class="philosophy-ja reveal">
-      障碍は制限ではなく、<br>異なる輝きのかたち。
-    </p>
-    <p class="philosophy-body reveal">
-      私たちは障碍のある方を「支援される側」とだけ捉えません。
-      それぞれが持つ感性・集中力・創造性を最大限に発揮できるよう、
-      伴走型の支援を徹底します。地域包括ケアの中で医療・介護・障碍が
-      縦割りにならず、シームレスにつながる体制こそが奉優会の強みです。
-    </p>
-  </div>
-</section>
-
-<!-- VOICES -->
-<section class="voices-section" id="voices">
-  <div class="voices-header reveal">
-    <div>
-      <div class="mission-label" style="color:#C0582A; font-family:'Jost',sans-serif; font-size:9px; letter-spacing:0.45em; text-transform:uppercase; margin-bottom:12px;">Voices</div>
-      <h2 class="voices-title">利用者・<br>ご家族の声</h2>
+  <footer class="site-footer">
+    <div class="brand footer-brand">
+      <span class="brand-main">LAGO</span>
+      <span class="brand-sub">BOULDERING STUDIO</span>
     </div>
-    <a href="#" class="voices-link">すべて見る</a>
-  </div>
-
-  <div class="voices-grid">
-    <div class="voice-card reveal">
-      <div class="voice-card-accent"></div>
-      <div class="voice-tag">就労移行支援 / 利用者</div>
-      <p class="voice-text">
-        「ここに来てから、働くことへの不安が少しずつ消えていきました。
-        スタッフの方が一緒に考えてくれるので、自分のペースで
-        前に進める気がしています。」
-      </p>
-      <div>
-        <span class="voice-name">Aさん（30代・精神障碍）</span>
-        <span class="voice-role">就労移行支援 ご利用</span>
-      </div>
+    <p>© LAGO BOULDERING STUDIO</p>
+    <div class="footer-links">
+      <a href="#first">初めての方へ</a>
+      <a href="#price">料金</a>
+      <a href="#contact">お問い合わせ</a>
+      <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer">Instagram</a>
     </div>
+  </footer>
 
-    <div class="voice-card reveal reveal-delay-1">
-      <div class="voice-card-accent"></div>
-      <div class="voice-tag">グループホーム / ご家族</div>
-      <p class="voice-text">
-        「息子がこんなに生き生きと過ごしているのを見て、
-        親としてとても安心しました。きめ細かいサポートに
-        毎日感謝しています。」
-      </p>
-      <div>
-        <span class="voice-name">Bさんのご家族</span>
-        <span class="voice-role">グループホーム ご利用</span>
-      </div>
-    </div>
-
-    <div class="voice-card reveal reveal-delay-2">
-      <div class="voice-card-accent"></div>
-      <div class="voice-tag">就労継続B型 / 利用者</div>
-      <p class="voice-text">
-        「作業を通じて達成感を味わえるようになりました。
-        ここでの経験が自信につながって、外出や人づきあいも
-        楽になってきました。」
-      </p>
-      <div>
-        <span class="voice-name">Cさん（40代・身体障碍）</span>
-        <span class="voice-role">就労継続B型 ご利用</span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- LOCATIONS -->
-<section class="locations" id="locations">
-  <div class="locations-header reveal">
-    <div class="mission-label" style="color:var(--accent); font-family:'Jost',sans-serif; font-size:9px; letter-spacing:0.45em; text-transform:uppercase;">Locations</div>
-    <h2 class="locations-title">拠点案内</h2>
+  <div class="mobile-actions">
+    <a href="#contact">利用相談</a>
+    <a href="#access">アクセス</a>
+    <a href="tel:0000000000">電話</a>
   </div>
 
-  <div class="loc-list">
-    <a href="#" class="loc-item">
-      <div class="loc-item-fill"></div>
-      <span class="loc-n">01</span>
-      <div>
-        <div class="loc-name">就労移行支援センター 世田谷</div>
-        <div class="loc-addr">東京都世田谷区 — 三軒茶屋駅 徒歩5分</div>
-      </div>
-      <span class="loc-type">就労移行</span>
-      <span class="loc-arr">→</span>
-    </a>
-    <a href="#" class="loc-item">
-      <div class="loc-item-fill"></div>
-      <span class="loc-n">02</span>
-      <div>
-        <div class="loc-name">就労継続支援B型 池袋</div>
-        <div class="loc-addr">東京都豊島区 — 池袋駅 徒歩8分</div>
-      </div>
-      <span class="loc-type">就労継続B型</span>
-      <span class="loc-arr">→</span>
-    </a>
-    <a href="#" class="loc-item">
-      <div class="loc-item-fill"></div>
-      <span class="loc-n">03</span>
-      <div>
-        <div class="loc-name">グループホーム 中野</div>
-        <div class="loc-addr">東京都中野区 — 中野駅 徒歩10分</div>
-      </div>
-      <span class="loc-type">グループホーム</span>
-      <span class="loc-arr">→</span>
-    </a>
-    <a href="#" class="loc-item">
-      <div class="loc-item-fill"></div>
-      <span class="loc-n">04</span>
-      <div>
-        <div class="loc-name">グループホーム 練馬</div>
-        <div class="loc-addr">東京都練馬区 — 練馬駅 徒歩12分</div>
-      </div>
-      <span class="loc-type">グループホーム</span>
-      <span class="loc-arr">→</span>
-    </a>
-    <a href="#" class="loc-item">
-      <div class="loc-item-fill"></div>
-      <span class="loc-n">05</span>
-      <div>
-        <div class="loc-name">相談支援センター 新宿</div>
-        <div class="loc-addr">東京都新宿区 — 新宿駅 徒歩6分</div>
-      </div>
-      <span class="loc-type">相談支援</span>
-      <span class="loc-arr">→</span>
-    </a>
-  </div>
-</section>
-
-<!-- CONTACT -->
-<section class="contact" id="contact">
-  <div class="contact-bg">
-    <canvas id="contactCanvas"></canvas>
-  </div>
-  <div class="contact-inner">
-    <div class="contact-label">Contact</div>
-    <h2 class="contact-title">
-      まず、<br><em>話を聞かせて</em><br>ください。
-    </h2>
-    <p class="contact-body">
-      サービスの詳細、利用資格、申込方法など、どんな小さな疑問でもお気軽にご相談ください。
-      専門の相談員が丁寧にお答えします。見学も随時受け付けています。
-    </p>
-    <div class="contact-btns">
-      <a href="#" class="btn-a">お問い合わせ・見学申込</a>
-      <a href="#" class="btn-b">資料を請求する</a>
-    </div>
-  </div>
-</section>
-
-<!-- FOOTER -->
-<footer>
-  <div class="footer-grid">
-    <div>
-      <div class="footer-logo">奉優会</div>
-      <div class="footer-tagline">Social Welfare Corporation</div>
-    </div>
-    <div>
-      <div class="footer-col-title">Links</div>
-      <div class="footer-links">
-        <a href="#">法人について</a>
-        <a href="#">医療・介護事業</a>
-        <a href="#">採用情報</a>
-        <a href="#">プライバシーポリシー</a>
-      </div>
-    </div>
-    <div>
-      <div class="footer-col-title">Contact</div>
-      <div class="footer-tel">03-XXXX-XXXX</div>
-      <div class="footer-tel-note">平日 9:00 — 17:00</div>
-    </div>
-  </div>
-  <div class="footer-bottom">
-    <div class="footer-copy">© 2025 社会福祉法人 奉優会. All rights reserved.</div>
-    <div class="footer-copy">障碍者支援事業部</div>
-  </div>
-</footer>
-
-<script>
-/* ── CURSOR ── */
-const cursor = document.getElementById('cursor');
-const ring = document.getElementById('cursorRing');
-let mx=0,my=0,rx=0,ry=0;
-document.addEventListener('mousemove', e=>{
-  mx=e.clientX; my=e.clientY;
-  cursor.style.transform = `translate(${mx-5}px,${my-5}px)`;
-});
-(function animRing(){
-  rx += (mx-rx-18)*0.12;
-  ry += (my-ry-18)*0.12;
-  ring.style.transform=`translate(${rx}px,${ry}px)`;
-  requestAnimationFrame(animRing);
-})();
-
-/* ── HERO CANVAS — flowing abstract organic ── */
-(function(){
-  const c = document.getElementById('heroCanvas');
-  if(!c) return;
-  const ctx = c.getContext('2d');
-  let W,H,t=0;
-  function resize(){
-    W=c.width=c.offsetWidth; H=c.height=c.offsetHeight;
-  }
-  resize();
-  window.addEventListener('resize',resize);
-
-  // particles
-  const pts = Array.from({length:120},()=>({
-    x: Math.random()*W, y: Math.random()*H,
-    vx:(Math.random()-.5)*0.4, vy:(Math.random()-.5)*0.4,
-    r: Math.random()*2+0.5,
-    hue: Math.random()<0.3 ? 20 : Math.random()<0.5 ? 200 : 140,
-    sat: Math.floor(Math.random()*40+20),
-    life: Math.random()*Math.PI*2
-  }));
-
-  function draw(){
-    ctx.fillStyle='rgba(10,10,10,0.18)';
-    ctx.fillRect(0,0,W,H);
-    t+=0.008;
-
-    pts.forEach((p,i)=>{
-      p.life+=0.015;
-      p.x+=p.vx + Math.sin(p.life+i)*0.3;
-      p.y+=p.vy + Math.cos(p.life*0.7+i)*0.3;
-      if(p.x<0)p.x=W; if(p.x>W)p.x=0;
-      if(p.y<0)p.y=H; if(p.y>H)p.y=0;
-
-      ctx.beginPath();
-      ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-      ctx.fillStyle=`hsla(${p.hue},${p.sat}%,60%,0.6)`;
-      ctx.fill();
-
-      // connect near particles
-      for(let j=i+1;j<pts.length;j++){
-        const q=pts[j];
-        const dx=p.x-q.x, dy=p.y-q.y;
-        const d=Math.sqrt(dx*dx+dy*dy);
-        if(d<90){
-          ctx.beginPath();
-          ctx.moveTo(p.x,p.y); ctx.lineTo(q.x,q.y);
-          ctx.strokeStyle=`hsla(${p.hue},30%,70%,${(1-d/90)*0.12})`;
-          ctx.lineWidth=0.5;
-          ctx.stroke();
-        }
-      }
-    });
-
-    // flowing curves
-    for(let k=0;k<5;k++){
-      ctx.beginPath();
-      ctx.moveTo(0, H*0.3+Math.sin(t+k)*80);
-      for(let x=0;x<=W;x+=8){
-        const y = H*0.4 + Math.sin(x/120+t+k*0.6)*60 + Math.cos(x/80-t*0.7+k)*40;
-        ctx.lineTo(x,y);
-      }
-      ctx.strokeStyle=`hsla(${20+k*30},50%,60%,0.04)`;
-      ctx.lineWidth=1.5;
-      ctx.stroke();
-    }
-
-    requestAnimationFrame(draw);
-  }
-  draw();
-})();
-
-/* ── MISSION CANVAS — dense dot/cell pattern ── */
-(function(){
-  const c = document.getElementById('missionCanvas');
-  if(!c) return;
-  c.width=c.offsetWidth||500; c.height=c.offsetHeight||600;
-  const ctx = c.getContext('2d');
-  const W=c.width, H=c.height;
-  let t=0;
-
-  function draw(){
-    ctx.clearRect(0,0,W,H);
-    t+=0.012;
-    const cols=30, rows=38;
-    const cw=W/cols, rh=H/rows;
-    for(let r=0;r<rows;r++){
-      for(let col=0;col<cols;col++){
-        const x=(col+0.5)*cw, y=(r+0.5)*rh;
-        const v=Math.sin(col/4+t)*Math.cos(r/4-t*0.7);
-        const v2=Math.sin((col+r)/6+t*1.2);
-        const hue = 15+v2*30;
-        const alpha=(v+1)/2*0.7;
-        const size=(v+1)/2*cw*0.45;
-        ctx.beginPath();
-        ctx.arc(x,y,size,0,Math.PI*2);
-        ctx.fillStyle=`hsla(${hue},60%,55%,${alpha})`;
-        ctx.fill();
-      }
-    }
-    requestAnimationFrame(draw);
-  }
-  draw();
-})();
-
-/* ── PHILOSOPHY CANVAS — layered abstract strokes ── */
-(function(){
-  const c = document.getElementById('philosophyCanvas');
-  if(!c) return;
-  const ctx = c.getContext('2d');
-  let W,H,t=0;
-  function resize(){
-    W=c.width=c.offsetWidth; H=c.height=c.offsetHeight;
-  }
-  resize();
-  window.addEventListener('resize',resize);
-
-  function draw(){
-    ctx.fillStyle='rgba(13,8,21,0.15)';
-    ctx.fillRect(0,0,W,H);
-    t+=0.006;
-
-    // layered sinusoidal bands
-    for(let layer=0;layer<8;layer++){
-      ctx.beginPath();
-      const baseH = H*(layer/8);
-      for(let x=0;x<=W;x+=4){
-        const y = baseH
-          + Math.sin(x/100+t+layer*0.9)*50
-          + Math.cos(x/60-t*0.5+layer)*30;
-        if(x===0) ctx.moveTo(x,y);
-        else ctx.lineTo(x,y);
-      }
-      const hue = layer%2===0 ? 260+layer*8 : 15+layer*5;
-      ctx.strokeStyle=`hsla(${hue},50%,65%,0.15)`;
-      ctx.lineWidth=2;
-      ctx.stroke();
-    }
-
-    // scattered bright dots
-    if(Math.random()<0.3){
-      const x=Math.random()*W, y=Math.random()*H;
-      const g=ctx.createRadialGradient(x,y,0,x,y,30);
-      const hue=Math.random()<0.5?260:20;
-      g.addColorStop(0,`hsla(${hue},70%,70%,0.5)`);
-      g.addColorStop(1,'transparent');
-      ctx.beginPath(); ctx.arc(x,y,30,0,Math.PI*2);
-      ctx.fillStyle=g; ctx.fill();
-    }
-
-    requestAnimationFrame(draw);
-  }
-  draw();
-})();
-
-/* ── CONTACT CANVAS ── */
-(function(){
-  const c = document.getElementById('contactCanvas');
-  if(!c) return;
-  const ctx = c.getContext('2d');
-  let W,H,t=0;
-  function resize(){ W=c.width=c.offsetWidth; H=c.height=c.offsetHeight; }
-  resize(); window.addEventListener('resize',resize);
-
-  const pts = Array.from({length:80},()=>({
-    x:Math.random()*1200, y:Math.random()*800,
-    vx:(Math.random()-.5)*0.6, vy:(Math.random()-.5)*0.6,
-    hue: Math.random()<0.4 ? 15 : Math.random()<0.5 ? 260 : 140
-  }));
-
-  function draw(){
-    ctx.fillStyle='rgba(10,5,15,0.2)';
-    ctx.fillRect(0,0,W,H);
-    t+=0.01;
-    pts.forEach(p=>{
-      p.x+=p.vx; p.y+=p.vy;
-      if(p.x<0||p.x>W) p.vx*=-1;
-      if(p.y<0||p.y>H) p.vy*=-1;
-      ctx.beginPath(); ctx.arc(p.x,p.y,1.5,0,Math.PI*2);
-      ctx.fillStyle=`hsla(${p.hue},60%,65%,0.5)`;
-      ctx.fill();
-    });
-    for(let i=0;i<pts.length;i++)
-      for(let j=i+1;j<pts.length;j++){
-        const a=pts[i],b=pts[j];
-        const d=Math.hypot(a.x-b.x,a.y-b.y);
-        if(d<100){
-          ctx.beginPath(); ctx.moveTo(a.x,a.y); ctx.lineTo(b.x,b.y);
-          ctx.strokeStyle=`hsla(${a.hue},40%,60%,${(1-d/100)*0.15})`;
-          ctx.lineWidth=0.5; ctx.stroke();
-        }
-      }
-    requestAnimationFrame(draw);
-  }
-  draw();
-})();
-
-/* ── SCROLL REVEAL ── */
-const observer = new IntersectionObserver(entries=>{
-  entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('in'); });
-},{threshold:0.15});
-document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
-</script>
+  <script src="script.js"></script>
 </body>
 </html>
