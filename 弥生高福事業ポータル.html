@@ -1,0 +1,1088 @@
+<!DOCTYPE html>
+<!-- saved from url=(0189)file:///C:/Users/fy-306/OneDrive/%E3%83%89%E3%82%AD%E3%83%A5%E3%83%A1%E3%83%B3%E3%83%88/%E5%BC%A5%E7%94%9F%E9%AB%98%E7%A6%8F%E4%BA%8B%E6%A5%AD%E3%83%9D%E3%83%BC%E3%82%BF%E3%83%AB/index.html -->
+<html lang="ja"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>弥生高福事業ポータル</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f6f7f4;
+      --surface: #ffffff;
+      --surface-2: #eef4ed;
+      --ink: #1e2720;
+      --muted: #667064;
+      --line: #d8ded5;
+      --accent: #27634e;
+      --accent-2: #b34832;
+      --focus: #f4c34f;
+      --shadow: 0 18px 48px rgba(28, 43, 34, .08);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: "Yu Gothic", "Meiryo", system-ui, sans-serif;
+      line-height: 1.55;
+    }
+
+    button,
+    input,
+    select,
+    textarea {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    .app {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 280px minmax(0, 1fr);
+    }
+
+    .sidebar {
+      background: #213b31;
+      color: #f7faf7;
+      padding: 28px 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+
+    .brand {
+      display: grid;
+      gap: 6px;
+    }
+
+    .brand strong {
+      font-size: 21px;
+      letter-spacing: 0;
+    }
+
+    .brand span {
+      color: #cbd8cf;
+      font-size: 13px;
+    }
+
+    .month-card {
+      background: rgba(255, 255, 255, .08);
+      border: 1px solid rgba(255, 255, 255, .14);
+      border-radius: 8px;
+      padding: 16px;
+    }
+
+    .month-card label {
+      display: block;
+      color: #dbe7df;
+      font-size: 12px;
+      margin-bottom: 8px;
+    }
+
+    .month-card select {
+      width: 100%;
+      min-height: 42px;
+      border: 1px solid rgba(255, 255, 255, .2);
+      border-radius: 6px;
+      background: #142820;
+      color: #ffffff;
+      padding: 0 12px;
+    }
+
+    .nav {
+      display: grid;
+      gap: 8px;
+    }
+
+    .nav button {
+      min-height: 42px;
+      border: 0;
+      border-radius: 6px;
+      background: transparent;
+      color: #eaf1ec;
+      text-align: left;
+      padding: 0 12px;
+    }
+
+    .nav button.active,
+    .nav button:hover {
+      background: rgba(255, 255, 255, .12);
+    }
+
+    .main {
+      min-width: 0;
+      padding: 30px;
+      display: grid;
+      gap: 22px;
+      align-content: start;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: start;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 28px;
+      letter-spacing: 0;
+    }
+
+    .lead {
+      margin: 6px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .btn {
+      min-height: 40px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: var(--surface);
+      color: var(--ink);
+      padding: 0 14px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      white-space: nowrap;
+    }
+
+    .btn.primary {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #ffffff;
+    }
+
+    .btn.warn {
+      color: #8d2c1c;
+      border-color: #e0b7ad;
+    }
+
+    .summary {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .metric {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 16px;
+      box-shadow: var(--shadow);
+    }
+
+    .metric span {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .metric strong {
+      display: block;
+      margin-top: 6px;
+      font-size: 28px;
+      line-height: 1.1;
+    }
+
+    .board {
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(360px, .65fr);
+      gap: 18px;
+      align-items: start;
+    }
+
+    .panel {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+      min-width: 0;
+    }
+
+    .panel-header {
+      padding: 16px 18px;
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .panel-header h2 {
+      margin: 0;
+      font-size: 17px;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 760px;
+    }
+
+    th,
+    td {
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+      font-size: 14px;
+    }
+
+    th {
+      color: var(--muted);
+      font-weight: 700;
+      font-size: 12px;
+      background: #fafbf9;
+    }
+
+    tr.selected {
+      background: #fff8e2;
+    }
+
+    .event-title {
+      display: grid;
+      gap: 4px;
+    }
+
+    .event-title button {
+      border: 0;
+      background: transparent;
+      color: var(--accent);
+      padding: 0;
+      text-align: left;
+      font-weight: 700;
+    }
+
+    .badge {
+      display: inline-flex;
+      width: fit-content;
+      min-height: 24px;
+      align-items: center;
+      border-radius: 999px;
+      padding: 0 9px;
+      font-size: 12px;
+      background: var(--surface-2);
+      color: #315041;
+      white-space: nowrap;
+    }
+
+    .badge.alert {
+      background: #ffe6df;
+      color: #8d2c1c;
+    }
+
+    .detail {
+      padding: 18px;
+      display: grid;
+      gap: 16px;
+    }
+
+    .detail-title {
+      display: grid;
+      gap: 4px;
+    }
+
+    .detail-title h3 {
+      margin: 0;
+      font-size: 20px;
+    }
+
+    .detail-title p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .mini-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .mini {
+      background: #fafbf9;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 12px;
+    }
+
+    .mini span {
+      color: var(--muted);
+      display: block;
+      font-size: 12px;
+    }
+
+    .mini strong {
+      display: block;
+      margin-top: 3px;
+      font-size: 18px;
+    }
+
+    .form-row {
+      display: grid;
+      gap: 8px;
+    }
+
+    .form-row label {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .inline-form {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 120px;
+      gap: 8px;
+    }
+
+    input,
+    textarea,
+    select {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: #fff;
+      color: var(--ink);
+      padding: 10px 11px;
+      min-height: 40px;
+    }
+
+    textarea {
+      min-height: 92px;
+      resize: vertical;
+    }
+
+    .participant-list {
+      display: grid;
+      gap: 8px;
+    }
+
+    .participant {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 8px 10px;
+      background: #ffffff;
+    }
+
+    .participant button {
+      width: 30px;
+      height: 30px;
+      border: 1px solid #e0b7ad;
+      border-radius: 6px;
+      color: #8d2c1c;
+      background: #fff7f5;
+      line-height: 1;
+    }
+
+    .report {
+      padding: 18px;
+      display: none;
+      gap: 14px;
+    }
+
+    .report.active {
+      display: grid;
+    }
+
+    .report-preview {
+      min-height: 320px;
+      white-space: pre-wrap;
+      background: #fbfcfa;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 16px;
+      font-family: "Yu Gothic", "Meiryo", system-ui, sans-serif;
+      font-size: 14px;
+    }
+
+    .empty {
+      color: var(--muted);
+      font-size: 13px;
+      padding: 10px 0;
+    }
+
+    @media (max-width: 1020px) {
+      .app {
+        grid-template-columns: 1fr;
+      }
+
+      .sidebar {
+        position: static;
+      }
+
+      .board,
+      .summary {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 680px) {
+      .main {
+        padding: 18px;
+      }
+
+      .topbar,
+      .panel-header {
+        display: grid;
+      }
+
+      .actions {
+        justify-content: stretch;
+      }
+
+      .btn {
+        width: 100%;
+      }
+
+      .inline-form,
+      .mini-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="brand">
+        <strong>弥生高福事業ポータル</strong>
+        <span>月次予定・参加状況・報告書</span>
+      </div>
+
+      <div class="month-card">
+        <label for="monthSelect">対象月</label>
+        <select id="monthSelect">
+          <option value="2026-07">2026年7月</option>
+        </select>
+      </div>
+
+      <nav class="nav" aria-label="表示切替">
+        <button class="" data-view="dashboard">月次一覧</button>
+        <button data-view="report" class="active">参加報告書</button>
+      </nav>
+    </aside>
+
+    <main class="main">
+      <section class="topbar">
+        <div>
+          <h1>2026年7月の事業予定</h1>
+          <p class="lead">画像の7月リストをもとに、定員・参加想定・参加者名簿をまとめています。</p>
+        </div>
+        <div class="actions">
+          <button class="btn" id="exportCsv">CSV出力</button>
+          <button class="btn primary" id="makeReport">報告書を作成</button>
+        </div>
+      </section>
+
+      <section class="summary" aria-label="月次サマリー">
+        <div class="metric">
+          <span>予定数</span>
+          <strong id="eventCount">9</strong>
+        </div>
+        <div class="metric">
+          <span>参加想定人数</span>
+          <strong id="expectedCount">192</strong>
+        </div>
+        <div class="metric">
+          <span>登録済み参加者</span>
+          <strong id="registeredCount">6</strong>
+        </div>
+        <div class="metric">
+          <span>報告書対象</span>
+          <strong id="reportTarget">3</strong>
+        </div>
+      </section>
+
+      <section class="board" id="dashboardView" style="display: none;">
+        <div class="panel">
+          <div class="panel-header">
+            <h2>毎月やること</h2>
+            <span class="badge">リアルタイム集計</span>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>タイトル</th>
+                  <th>日付</th>
+                  <th>時間</th>
+                  <th>場所</th>
+                  <th>想定</th>
+                  <th>登録</th>
+                </tr>
+              </thead>
+              <tbody id="eventRows"><tr class="selected">
+          <td>
+            <div class="event-title">
+              <button type="button" data-select="health-longevity-2026-07-27">健康寿命をのばすコツ</button>
+              <span>食事・睡眠・運動・ストレスについて。先着30名。</span>
+            </div>
+          </td>
+          <td>7月27日(月)</td>
+          <td>13:30-15:00</td>
+          <td>2F 大広間</td>
+          <td><span class="badge">30名</span></td>
+          <td><span class="badge ">3名</span></td>
+        </tr><tr>
+          <td>
+            <div class="event-title">
+              <button type="button" data-select="music-2026-07-06">若返り音楽園</button>
+              <span>懐かしいうたと一緒に音楽を楽しむ。</span>
+            </div>
+          </td>
+          <td>7月6日(月)</td>
+          <td>10:00-11:30</td>
+          <td>2F 大広間</td>
+          <td><span class="badge">30名</span></td>
+          <td><span class="badge ">2名</span></td>
+        </tr><tr>
+          <td>
+            <div class="event-title">
+              <button type="button" data-select="brain-art-2026-07-08">アートで脳トレ</button>
+              <span>毎月違う題材で作品づくり。</span>
+            </div>
+          </td>
+          <td>7月8日(水)</td>
+          <td>10:00-11:30</td>
+          <td>3F 会議室</td>
+          <td><span class="badge">20名</span></td>
+          <td><span class="badge ">0名</span></td>
+        </tr><tr>
+          <td>
+            <div class="event-title">
+              <button type="button" data-select="bon-dance-2026-07-15">盆踊りで健康体操</button>
+              <span>音頭で体を動かす健康体操。</span>
+            </div>
+          </td>
+          <td>7月15日(水)</td>
+          <td>10:00-11:30</td>
+          <td>2F 大広間</td>
+          <td><span class="badge">30名</span></td>
+          <td><span class="badge ">0名</span></td>
+        </tr><tr>
+          <td>
+            <div class="event-title">
+              <button type="button" data-select="shabutsu-2026-07-13">写仏の時間</button>
+              <span>筆ペンで下書きの写仏を仕上げる。</span>
+            </div>
+          </td>
+          <td>7月13日(月)</td>
+          <td>09:30-11:00</td>
+          <td>1F 和室</td>
+          <td><span class="badge">15名</span></td>
+          <td><span class="badge ">0名</span></td>
+        </tr><tr>
+          <td>
+            <div class="event-title">
+              <button type="button" data-select="shosha-2026-07-21">書写の時間</button>
+              <span>小倉百人一首をかなや漢字でなぞる。</span>
+            </div>
+          </td>
+          <td>7月21日(火)</td>
+          <td>09:30-11:00</td>
+          <td>1F 和室</td>
+          <td><span class="badge">15名</span></td>
+          <td><span class="badge ">0名</span></td>
+        </tr><tr>
+          <td>
+            <div class="event-title">
+              <button type="button" data-select="shakyo-2026-07-27">写経の時間</button>
+              <span>般若心経を書く。</span>
+            </div>
+          </td>
+          <td>7月27日(月)</td>
+          <td>09:30-11:00</td>
+          <td>1F 和室</td>
+          <td><span class="badge">15名</span></td>
+          <td><span class="badge ">0名</span></td>
+        </tr><tr>
+          <td>
+            <div class="event-title">
+              <button type="button" data-select="sanryo-2026-07-17">三療サービス</button>
+              <span>マッサージ施術。1回45分、900円。</span>
+            </div>
+          </td>
+          <td>7月17日(金)</td>
+          <td>09:30-15:00</td>
+          <td>1F 和室</td>
+          <td><span class="badge">12名</span></td>
+          <td><span class="badge ">1名</span></td>
+        </tr><tr>
+          <td>
+            <div class="event-title">
+              <button type="button" data-select="furifuri-2026-07">ふりふり体操</button>
+              <span>祝日は休み。全身ストレッチと筋トレ。</span>
+            </div>
+          </td>
+          <td>毎週 月・水</td>
+          <td>12:00-12:45</td>
+          <td>2F 大広間</td>
+          <td><span class="badge">25名</span></td>
+          <td><span class="badge ">0名</span></td>
+        </tr></tbody>
+            </table>
+          </div>
+        </div>
+
+        <aside class="panel">
+          <div class="panel-header">
+            <h2>参加者リスト</h2>
+            <span class="badge " id="capacityBadge">3 / 30</span>
+          </div>
+          <div class="detail">
+            <div class="detail-title">
+              <h3 id="detailTitle">健康寿命をのばすコツ</h3>
+              <p id="detailMeta">7月27日(月) 13:30-15:00 / 2F 大広間</p>
+            </div>
+            <div class="mini-grid">
+              <div class="mini">
+                <span>参加想定</span>
+                <strong id="detailExpected">30名</strong>
+              </div>
+              <div class="mini">
+                <span>登録済み</span>
+                <strong id="detailRegistered">3名</strong>
+              </div>
+            </div>
+            <div class="form-row">
+              <label for="participantName">参加者名を追加</label>
+              <div class="inline-form">
+                <input id="participantName" placeholder="例：山田 花子">
+                <button class="btn primary" id="addParticipant">追加</button>
+              </div>
+            </div>
+            <div class="participant-list" id="participantList"><div class="participant"><span>佐藤 一郎</span><button type="button" title="削除" data-remove="0">×</button></div><div class="participant"><span>田中 花子</span><button type="button" title="削除" data-remove="1">×</button></div><div class="participant"><span>鈴木 和子</span><button type="button" title="削除" data-remove="2">×</button></div></div>
+          </div>
+        </aside>
+      </section>
+
+      <section class="panel report active" id="reportView">
+        <div class="panel-header">
+          <h2>参加報告書 自動生成</h2>
+          <button class="btn" id="copyReport">本文をコピー</button>
+        </div>
+        <div class="detail">
+          <div class="form-row">
+            <label for="reportEvent">報告書にする事業</label>
+            <select id="reportEvent"><option value="health-longevity-2026-07-27">7月27日(月) 健康寿命をのばすコツ</option><option value="music-2026-07-06">7月6日(月) 若返り音楽園</option><option value="brain-art-2026-07-08">7月8日(水) アートで脳トレ</option><option value="bon-dance-2026-07-15">7月15日(水) 盆踊りで健康体操</option><option value="shabutsu-2026-07-13">7月13日(月) 写仏の時間</option><option value="shosha-2026-07-21">7月21日(火) 書写の時間</option><option value="shakyo-2026-07-27">7月27日(月) 写経の時間</option><option value="sanryo-2026-07-17">7月17日(金) 三療サービス</option><option value="furifuri-2026-07">毎週 月・水 ふりふり体操</option></select>
+          </div>
+          <div class="form-row">
+            <label for="reportNotes">内容・所感</label>
+            <textarea id="reportNotes" placeholder="当日の様子、参加者の反応、次回改善点など"></textarea>
+          </div>
+          <div class="actions">
+            <button class="btn primary" id="refreshReport">再生成</button>
+          </div>
+          <div class="report-preview" id="reportPreview">参加報告書
+
+事業名：健康寿命をのばすコツ
+実施日：7月27日(月)
+時間：13:30-15:00
+場所：2F 大広間
+参加想定人数：30名
+参加人数：3名
+
+参加者：
+1. 佐藤 一郎
+2. 田中 花子
+3. 鈴木 和子
+
+内容・所感：
+当日の様子・参加者の反応・次回改善点をここに入力します。</div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    const storageKey = "yayoi-portal-v1";
+
+    const defaultEvents = [
+      {
+        id: "health-longevity-2026-07-27",
+        title: "健康寿命をのばすコツ",
+        date: "2026-07-27",
+        weekday: "月",
+        time: "13:30-15:00",
+        place: "2F 大広間",
+        expected: 30,
+        memo: "食事・睡眠・運動・ストレスについて。先着30名。"
+      },
+      {
+        id: "music-2026-07-06",
+        title: "若返り音楽園",
+        date: "2026-07-06",
+        weekday: "月",
+        time: "10:00-11:30",
+        place: "2F 大広間",
+        expected: 30,
+        memo: "懐かしいうたと一緒に音楽を楽しむ。"
+      },
+      {
+        id: "brain-art-2026-07-08",
+        title: "アートで脳トレ",
+        date: "2026-07-08",
+        weekday: "水",
+        time: "10:00-11:30",
+        place: "3F 会議室",
+        expected: 20,
+        memo: "毎月違う題材で作品づくり。"
+      },
+      {
+        id: "bon-dance-2026-07-15",
+        title: "盆踊りで健康体操",
+        date: "2026-07-15",
+        weekday: "水",
+        time: "10:00-11:30",
+        place: "2F 大広間",
+        expected: 30,
+        memo: "音頭で体を動かす健康体操。"
+      },
+      {
+        id: "shabutsu-2026-07-13",
+        title: "写仏の時間",
+        date: "2026-07-13",
+        weekday: "月",
+        time: "09:30-11:00",
+        place: "1F 和室",
+        expected: 15,
+        memo: "筆ペンで下書きの写仏を仕上げる。"
+      },
+      {
+        id: "shosha-2026-07-21",
+        title: "書写の時間",
+        date: "2026-07-21",
+        weekday: "火",
+        time: "09:30-11:00",
+        place: "1F 和室",
+        expected: 15,
+        memo: "小倉百人一首をかなや漢字でなぞる。"
+      },
+      {
+        id: "shakyo-2026-07-27",
+        title: "写経の時間",
+        date: "2026-07-27",
+        weekday: "月",
+        time: "09:30-11:00",
+        place: "1F 和室",
+        expected: 15,
+        memo: "般若心経を書く。"
+      },
+      {
+        id: "sanryo-2026-07-17",
+        title: "三療サービス",
+        date: "2026-07-17",
+        weekday: "金",
+        time: "09:30-15:00",
+        place: "1F 和室",
+        expected: 12,
+        memo: "マッサージ施術。1回45分、900円。"
+      },
+      {
+        id: "furifuri-2026-07",
+        title: "ふりふり体操",
+        date: "毎週 月・水",
+        weekday: "",
+        time: "12:00-12:45",
+        place: "2F 大広間",
+        expected: 25,
+        memo: "祝日は休み。全身ストレッチと筋トレ。"
+      }
+    ];
+
+    let state = loadState();
+    let selectedEventId = state.selectedEventId || defaultEvents[0].id;
+
+    const els = {
+      eventCount: document.querySelector("#eventCount"),
+      expectedCount: document.querySelector("#expectedCount"),
+      registeredCount: document.querySelector("#registeredCount"),
+      reportTarget: document.querySelector("#reportTarget"),
+      eventRows: document.querySelector("#eventRows"),
+      detailTitle: document.querySelector("#detailTitle"),
+      detailMeta: document.querySelector("#detailMeta"),
+      detailExpected: document.querySelector("#detailExpected"),
+      detailRegistered: document.querySelector("#detailRegistered"),
+      capacityBadge: document.querySelector("#capacityBadge"),
+      participantName: document.querySelector("#participantName"),
+      participantList: document.querySelector("#participantList"),
+      reportEvent: document.querySelector("#reportEvent"),
+      reportNotes: document.querySelector("#reportNotes"),
+      reportPreview: document.querySelector("#reportPreview"),
+      dashboardView: document.querySelector("#dashboardView"),
+      reportView: document.querySelector("#reportView")
+    };
+
+    function loadState() {
+      const stored = localStorage.getItem(storageKey);
+      if (!stored) {
+        return {
+          events: defaultEvents,
+          participants: {
+            "health-longevity-2026-07-27": ["佐藤 一郎", "田中 花子", "鈴木 和子"],
+            "music-2026-07-06": ["高橋 光子", "伊藤 正"],
+            "sanryo-2026-07-17": ["小林 久美子"]
+          },
+          notes: ""
+        };
+      }
+
+      try {
+        const parsed = JSON.parse(stored);
+        return {
+          events: parsed.events || defaultEvents,
+          participants: parsed.participants || {},
+          notes: parsed.notes || "",
+          selectedEventId: parsed.selectedEventId
+        };
+      } catch {
+        return { events: defaultEvents, participants: {}, notes: "" };
+      }
+    }
+
+    function saveState() {
+      localStorage.setItem(storageKey, JSON.stringify({
+        ...state,
+        selectedEventId
+      }));
+    }
+
+    function formatDate(event) {
+      if (event.date.includes("毎週")) return event.date;
+      const [year, month, day] = event.date.split("-");
+      return `${Number(month)}月${Number(day)}日(${event.weekday})`;
+    }
+
+    function getParticipants(eventId) {
+      return state.participants[eventId] || [];
+    }
+
+    function currentEvent() {
+      return state.events.find(event => event.id === selectedEventId) || state.events[0];
+    }
+
+    function render() {
+      renderSummary();
+      renderRows();
+      renderDetail();
+      renderReportOptions();
+      renderReport();
+      saveState();
+    }
+
+    function renderSummary() {
+      const expected = state.events.reduce((sum, event) => sum + event.expected, 0);
+      const registered = Object.values(state.participants).reduce((sum, list) => sum + list.length, 0);
+      els.eventCount.textContent = state.events.length;
+      els.expectedCount.textContent = expected;
+      els.registeredCount.textContent = registered;
+      els.reportTarget.textContent = state.events.filter(event => getParticipants(event.id).length > 0).length;
+    }
+
+    function renderRows() {
+      els.eventRows.innerHTML = "";
+      state.events.forEach(event => {
+        const participants = getParticipants(event.id);
+        const tr = document.createElement("tr");
+        if (event.id === selectedEventId) tr.className = "selected";
+        tr.innerHTML = `
+          <td>
+            <div class="event-title">
+              <button type="button" data-select="${event.id}">${event.title}</button>
+              <span>${event.memo}</span>
+            </div>
+          </td>
+          <td>${formatDate(event)}</td>
+          <td>${event.time}</td>
+          <td>${event.place}</td>
+          <td><span class="badge">${event.expected}名</span></td>
+          <td><span class="badge ${participants.length >= event.expected ? "alert" : ""}">${participants.length}名</span></td>
+        `;
+        els.eventRows.appendChild(tr);
+      });
+    }
+
+    function renderDetail() {
+      const event = currentEvent();
+      const participants = getParticipants(event.id);
+      els.detailTitle.textContent = event.title;
+      els.detailMeta.textContent = `${formatDate(event)} ${event.time} / ${event.place}`;
+      els.detailExpected.textContent = `${event.expected}名`;
+      els.detailRegistered.textContent = `${participants.length}名`;
+      els.capacityBadge.textContent = `${participants.length} / ${event.expected}`;
+      els.capacityBadge.className = `badge ${participants.length >= event.expected ? "alert" : ""}`;
+      els.participantList.innerHTML = "";
+
+      if (participants.length === 0) {
+        const empty = document.createElement("div");
+        empty.className = "empty";
+        empty.textContent = "参加者はまだ登録されていません。";
+        els.participantList.appendChild(empty);
+        return;
+      }
+
+      participants.forEach((name, index) => {
+        const row = document.createElement("div");
+        row.className = "participant";
+        row.innerHTML = `<span>${name}</span><button type="button" title="削除" data-remove="${index}">×</button>`;
+        els.participantList.appendChild(row);
+      });
+    }
+
+    function renderReportOptions() {
+      const value = els.reportEvent.value || selectedEventId;
+      els.reportEvent.innerHTML = "";
+      state.events.forEach(event => {
+        const option = document.createElement("option");
+        option.value = event.id;
+        option.textContent = `${formatDate(event)} ${event.title}`;
+        els.reportEvent.appendChild(option);
+      });
+      els.reportEvent.value = state.events.some(event => event.id === value) ? value : selectedEventId;
+    }
+
+    function renderReport() {
+      const event = state.events.find(item => item.id === els.reportEvent.value) || currentEvent();
+      const participants = getParticipants(event.id);
+      const notes = els.reportNotes.value.trim() || "当日の様子・参加者の反応・次回改善点をここに入力します。";
+      els.reportPreview.textContent = [
+        "参加報告書",
+        "",
+        `事業名：${event.title}`,
+        `実施日：${formatDate(event)}`,
+        `時間：${event.time}`,
+        `場所：${event.place}`,
+        `参加想定人数：${event.expected}名`,
+        `参加人数：${participants.length}名`,
+        "",
+        "参加者：",
+        participants.length ? participants.map((name, index) => `${index + 1}. ${name}`).join("\n") : "登録なし",
+        "",
+        "内容・所感：",
+        notes
+      ].join("\n");
+    }
+
+    function addParticipant() {
+      const name = els.participantName.value.trim();
+      if (!name) return;
+      const event = currentEvent();
+      const participants = getParticipants(event.id);
+      state.participants[event.id] = [...participants, name];
+      els.participantName.value = "";
+      render();
+    }
+
+    function removeParticipant(index) {
+      const event = currentEvent();
+      state.participants[event.id] = getParticipants(event.id).filter((_, itemIndex) => itemIndex !== index);
+      render();
+    }
+
+    function exportCsv() {
+      const rows = [
+        ["タイトル", "日付", "時間", "場所", "参加想定人数", "登録参加者数", "参加者"]
+      ];
+      state.events.forEach(event => {
+        const participants = getParticipants(event.id);
+        rows.push([
+          event.title,
+          formatDate(event),
+          event.time,
+          event.place,
+          event.expected,
+          participants.length,
+          participants.join(" / ")
+        ]);
+      });
+
+      const csv = rows.map(row => row.map(cell => `"${String(cell).replaceAll('"', '""')}"`).join(",")).join("\n");
+      const blob = new Blob(["\ufeff" + csv], { type: "text/csv;charset=utf-8" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "yayoi-2026-07-events.csv";
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    document.querySelector("#eventRows").addEventListener("click", event => {
+      const button = event.target.closest("[data-select]");
+      if (!button) return;
+      selectedEventId = button.dataset.select;
+      els.reportEvent.value = selectedEventId;
+      render();
+    });
+
+    document.querySelector("#participantList").addEventListener("click", event => {
+      const button = event.target.closest("[data-remove]");
+      if (!button) return;
+      removeParticipant(Number(button.dataset.remove));
+    });
+
+    document.querySelector("#addParticipant").addEventListener("click", addParticipant);
+    els.participantName.addEventListener("keydown", event => {
+      if (event.key === "Enter") addParticipant();
+    });
+
+    document.querySelector("#exportCsv").addEventListener("click", exportCsv);
+    document.querySelector("#makeReport").addEventListener("click", () => {
+      showView("report");
+      els.reportEvent.value = selectedEventId;
+      renderReport();
+    });
+    document.querySelector("#refreshReport").addEventListener("click", renderReport);
+    els.reportEvent.addEventListener("change", renderReport);
+    els.reportNotes.addEventListener("input", () => {
+      state.notes = els.reportNotes.value;
+      renderReport();
+      saveState();
+    });
+    document.querySelector("#copyReport").addEventListener("click", async () => {
+      await navigator.clipboard.writeText(els.reportPreview.textContent);
+    });
+
+    document.querySelectorAll(".nav button").forEach(button => {
+      button.addEventListener("click", () => showView(button.dataset.view));
+    });
+
+    function showView(view) {
+      document.querySelectorAll(".nav button").forEach(button => {
+        button.classList.toggle("active", button.dataset.view === view);
+      });
+      els.dashboardView.style.display = view === "dashboard" ? "" : "none";
+      els.reportView.classList.toggle("active", view === "report");
+    }
+
+    els.reportNotes.value = state.notes || "";
+    render();
+  </script>
+
+
+</body></html>
